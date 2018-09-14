@@ -1,2 +1,11 @@
-# retracted_article_database
-Database of retracted articles
+## Database of Retracted Articles
+
+To build the database of retracted articles, we started by creating a list of retraction notices. To do that, we searched Web of Science (WoS) for titles containing the phrase ``retraction of.'' The search yielded more than 14,000 records. Using the ``corrections'' filter in WoS, we filtered the list to 4,085 retraction notices.
+
+Next, we created software to search the WoS database for information about the articles that were retracted using information in retraction notices. Retraction notices did not contain consistent titles to allow a simple search for the original articles. But 99\% of the retraction notices contained the year the original article was published, and 96\% listed the authors of the original work. We used these two pieces of information along with the name of the publication to search the WoS for the original articles. The search resulted in a list of 3,776 articles. We couldn't locate the remaining 309 retracted articles.
+
+Due to the variability in the information contained in retraction notice records, the automated search process returned the wrong article in some cases. So we created a process to compare the information in the retraction notice records to information in the extracted retracted article records to flag potential false positives. If the list of authors of the retracted article did not match the list of authors for the relevant retraction notice record, the record was flagged as a potential false positive. Similarly, if the title of the retracted article didn't contain the words ``retracted'' or ``retraction,'' it was flagged as a potential false positive. (It is standard practice for titles of original articles to be revised to indicate the article has been retracted.) Finally, we parsed the titles of the retracted notices to extract the title of the original retracted article and flagged cases where the titles did not match as potential false positives. Potential false positives were reviewed and screened out if a match could not be verified. This process resulted in a set of 3,107 articles that served as the basis for the analysis.
+
+Next, we used information from the 3,107 retracted articles to search WoS to create a database of citations to the retracted articles. As an additional robustness check, we manually checked a random sample of 100 retracted articles to confirm that they had indeed been retracted. 
+
+Of the 3,107 retracted articles published between 1974 and 2016, 192 had never been cited till August 2016.
